@@ -1,0 +1,28 @@
+{
+  "label": "best ANN",
+  "spec": {
+    "model": "ann",
+    "params": {
+      "hidden": [
+        30,
+        30,
+        20,
+        10,
+        10
+      ],
+      "activation": "sigmoid",
+      "optimizer": "adam",
+      "lr": 0.001,
+      "l2": 0.0
+    },
+    "features": {
+      "ngram": [
+        1,
+        2
+      ],
+      "preproc": "negation",
+      "rep": "tfidf",
+      "max_features": 30000
+    }
+  }
+}

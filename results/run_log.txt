@@ -1,0 +1,83 @@
+[1/7] Preparing data
+  train: 25000 reviews  (pos=12500, neg=12500)
+  test: 25000 reviews  (pos=12500, neg=12500)
+  example basic   : this movie was not very good  it is not funny  really 
+  example negation: this movie was not_very_good it is not_funny really
+  cached to E:\IMDB_sentiment_analysis_final\IMDB_sentiment_analysis\data\cache
+[2/7] Running paper baseline (ANN 30-30-20-10-10, binary 1-3 grams)
+  hold-out validation ...
+    val_accuracy=0.8748  epochs=4  time=18.8s
+  5-fold CV (train only) ...
+    cv_accuracy=0.8889 +/- 0.0025
+[3/7] Running feature experiments
+  basic    ngram=(1, 1) binary cv=0.8762
+  basic    ngram=(1, 1) count  cv=0.8762
+  basic    ngram=(1, 1) tfidf  cv=0.8913
+  basic    ngram=(1, 2) binary cv=0.8875
+  basic    ngram=(1, 2) count  cv=0.8874
+  basic    ngram=(1, 2) tfidf  cv=0.8959
+  basic    ngram=(1, 3) binary cv=0.8865
+  basic    ngram=(1, 3) count  cv=0.8861
+  basic    ngram=(1, 3) tfidf  cv=0.8938
+  basic    ngram=(2, 3) binary cv=0.8568
+  basic    ngram=(2, 3) count  cv=0.8572
+  basic    ngram=(2, 3) tfidf  cv=0.8686
+  best representation (basic preprocessing): tfidf; testing negation-aware preprocessing
+  negation ngram=(1, 1) tfidf  cv=0.8944
+  negation ngram=(1, 2) tfidf  cv=0.8970
+  negation ngram=(1, 3) tfidf  cv=0.8938
+  negation ngram=(2, 3) tfidf  cv=0.8687
+  selected features (by CV): 1-2 tfidf negation
+[4/7] Running classical model comparison
+  features: ngram=(1, 2) rep=tfidf preprocessing=negation
+  logreg             {'C': 0.1}  cv=0.8693 +/- 0.0026
+  logreg             {'C': 1}  cv=0.8970 +/- 0.0028
+  logreg             {'C': 10}  cv=0.9027 +/- 0.0032
+  linear_svm         {'C': 0.01}  cv=0.8671 +/- 0.0033
+  linear_svm         {'C': 0.1}  cv=0.8988 +/- 0.0036
+  linear_svm         {'C': 1}  cv=0.8992 +/- 0.0026
+  naive_bayes        {'alpha': 0.1}  cv=0.8779 +/- 0.0041
+  naive_bayes        {'alpha': 0.5}  cv=0.8782 +/- 0.0036
+  naive_bayes        {'alpha': 1.0}  cv=0.8779 +/- 0.0041
+  knn                {'n_neighbors': 15}  cv=0.8380 +/- 0.0041
+  knn                {'n_neighbors': 31}  cv=0.8514 +/- 0.0039
+  random_forest      {'n_estimators': 100, 'max_features': 'sqrt'}  cv=0.8428 +/- 0.0026
+  gradient_boosting  {'n_estimators': 100, 'max_depth': 3, 'learning_rate': 0.1, 'subsample': 0.8, 'max_features': 'sqrt'}  cv=0.8211 +/- 0.0034
+  voting_lr_nb       {'C': 10, 'alpha': 0.5}  cv=0.9024 +/- 0.0034
+  best classical model (CV): logreg  cv=0.9027
+[5/7] Running decision-tree bias/variance
+  max_depth=3     train=0.6524 val=0.6493
+  max_depth=5     train=0.6931 val=0.6849
+  max_depth=10    train=0.7722 val=0.7228
+  max_depth=15    train=0.8204 val=0.7260
+  max_depth=None  train=1.0000 val=0.6986
+[6/7] Running ANN experiments
+  features: ngram=(1, 2) rep=tfidf preprocessing=negation
+  [A] paper_30-30-20-10-10   sigmoid  adam     l2=0  val=0.9018  (51s)
+  [A] paper_30-30-20-10-10   tanh     adam     l2=0  val=0.8886  (21s)
+  [A] paper_30-30-20-10-10   relu     adam     l2=0  val=0.8930  (20s)
+  [A] 64-32                  sigmoid  adam     l2=0  val=0.8984  (46s)
+  [A] 64-32                  tanh     adam     l2=0  val=0.8980  (18s)
+  [A] 64-32                  relu     adam     l2=0  val=0.8992  (18s)
+  [A] 128-64-32              sigmoid  adam     l2=0  val=0.8998  (71s)
+  [A] 128-64-32              tanh     adam     l2=0  val=0.8932  (29s)
+  [A] 128-64-32              relu     adam     l2=0  val=0.8942  (28s)
+  [B] paper_30-30-20-10-10   sigmoid  sgd      l2=0  val=0.5000  (3s)
+  [B] paper_30-30-20-10-10   sigmoid  momentum l2=0  val=0.5000  (4s)
+  [B] paper_30-30-20-10-10   sigmoid  adagrad  l2=0  val=0.8804  (5s)
+  [C] paper_30-30-20-10-10   sigmoid  adam     l2=1e-05  val=0.5000  (8s)
+  [C] paper_30-30-20-10-10   sigmoid  adam     l2=0.0001  val=0.5000  (8s)
+  [C] paper_30-30-20-10-10   sigmoid  adam     l2=0.001  val=0.5000  (8s)
+  CV paper-ANN + best features: 0.9014
+  CV best ANN: 0.9039
+[7/7] Final model selection + single test evaluation
+  candidates (CV accuracy on TRAIN):
+    paper ANN                                0.8889
+    paper ANN + best features                0.9014
+    best ANN                                 0.9039
+    best classical (logreg)                  0.9027
+  -> FINAL MODEL selected by CV: best ANN
+  TEST [paper ANN]  acc=0.8922  prec=0.8936  rec=0.8905  spec=0.8940  auc=0.9552
+  TEST [paper ANN + best features]  acc=0.9008  prec=0.8911  rec=0.9132  spec=0.8884  auc=0.9633
+  TEST [best ANN]  acc=0.9028  prec=0.9165  rec=0.8864  spec=0.9192  auc=0.9658
+  saved models/final_model.joblib, results/final_results.csv, plots/
