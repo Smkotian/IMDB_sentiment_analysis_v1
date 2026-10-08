@@ -67,7 +67,7 @@ def main():
 
     # like-for-like 5-fold CV on TRAIN for (i) paper ANN + selected features, (ii) best ANN
     paper = cfg.get("paper", {"spec": PAPER_SPEC, "cv_accuracy": float("nan")})
-    fi_spec = dict(PAPER_SPEC, features=fspec)
+    fi_spec = dict(PAPER_SPEC, params=dict(PAPER_SPEC["params"], patience=5), features=fspec)
     if fspec == PAPER_SPEC["features"]:
         fi_cv = paper["cv_accuracy"]
         print("  selected features == paper features -> feature-only step equals the paper baseline")
