@@ -8,7 +8,7 @@ import sys
 sys.path.insert(0, __import__("os").path.dirname(__file__))
 from common import *
 
-LRS = {"sgd": 0.1, "momentum": 0.05, "adagrad": 0.05, "adam": 1e-3}
+LRS = {"sgd": 0.5, "momentum": 0.1, "adagrad": 0.05, "adam": 1e-3}
 ARCHS = {"paper_30-30-20-10-10": [30, 30, 20, 10, 10], "64-32": [64, 32], "128-64-32": [128, 64, 32]}
 ACTS = ["sigmoid", "tanh", "relu"]
 
@@ -26,12 +26,15 @@ def main():
         if key in done:
             return done[key]
         spec = {"model": "ann", "params": {"hidden": ARCHS[arch], "activation": act, "optimizer": opt,
-                                           "lr": LRS[opt], "l2": l2}, "features": fspec}
+                                           "lr": LRS[opt], "l2": l2, "patience": 5}, "features": fspec}
         try:
             h = holdout_eval(spec, X, y)
             row = dict(stage=f"ann_step_{step}", **describe(spec), val_accuracy=h["val_accuracy"],
                        training_time=h["training_time"], architecture=arch, activation=act,
                        optimizer=opt, l2=l2, n_epochs=h["n_epochs"])
+            if h["val_accuracy"] < 0.55:
+                print("DID NOT CONVERGE")
+                row["notes"] = "did not converge"
             print(f"  [{step}] {arch:22s} {act:8s} {opt:8s} l2={l2:g}  val={h['val_accuracy']:.4f}  ({h['training_time']:.0f}s)")
         except Exception as e:
             row = dict(stage=f"ann_step_{step}", **describe(spec), val_accuracy=float("nan"), notes=f"failed: {e}",
@@ -50,7 +53,8 @@ def main():
     keysA = [(a, act, "adam", 0.0) for a in ARCHS for act in ACTS]
     for k in keysA:
         run("A", *k)
-    bA = best_of(keysA)
+    keysA_relu = [k for k in keysA if k[1] == "relu"]
+    bA = best_of(keysA_relu)
     arch, act = bA["architecture"], bA["activation"]
     keysB = [(arch, act, o, 0.0) for o in ("adam", "sgd", "momentum", "adagrad")]
     for k in keysB:
