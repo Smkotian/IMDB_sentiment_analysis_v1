@@ -69,7 +69,7 @@ stages 2–6 are optional and fall back gracefully. All output is also written t
 | 3 | `03_feature_experiments.py` | Feature variants (n-gram range, binary vs. count vs. TF-IDF, negation handling) | `results/feature_experiments.csv` |
 | 4 | `04_classical_models.py` | LogReg, KNN, Tree, RF, GB, NB, SVM compared | `results/classical_models.csv` |
 | 5 | `05_tree_bias_variance.py` | Decision-tree depth vs. bias/variance | `results/tree_bias_variance.csv` |
-| 6 | `06_ann_experiments.py` | MLP architecture / optimiser / L2 experiments | `results/ann_done.flag` |
+| 6 | `06_ann_experiments.py` | MLP architecture / optimiser / L2 experiments (Step A logs all activations; Steps B/C continue with ReLU runs because sigmoid stalled) | `results/ann_done.flag` |
 | 7 | `07_final_evaluation.py` | Select final model on validation/CV, evaluate once on test | `results/final_results.csv`, `models/final_model.joblib` |
 
 ## Repository layout
