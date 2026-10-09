@@ -1,6 +1,0 @@
-stage,model,feature_type,ngram_range,preprocessing,parameters,cv_accuracy,cv_std,val_accuracy,accuracy,precision,recall,specificity,roc_auc,training_time,inference_time,notes,train_accuracy,gap_train_minus_val
-tree_bias_variance,decision_tree,tfidf,1-2,negation,max_depth=3 max_features=5000,0.64932,0.006296157558384331,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,0.6524400000000001,0.0031200000000001227
-tree_bias_variance,decision_tree,tfidf,1-2,negation,max_depth=5 max_features=5000,0.68488,0.005908096140043765,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,0.69305,0.00817000000000001
-tree_bias_variance,decision_tree,tfidf,1-2,negation,max_depth=10 max_features=5000,0.7227599999999998,0.008888104409827766,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,0.77222,0.04946000000000017
-tree_bias_variance,decision_tree,tfidf,1-2,negation,max_depth=15 max_features=5000,0.7260399999999999,0.007795793737651088,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,0.82043,0.09439000000000008
-tree_bias_variance,decision_tree,tfidf,1-2,negation,max_depth=None max_features=5000,0.6986,0.009880890648114687,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,not_run,1.0,0.3014
