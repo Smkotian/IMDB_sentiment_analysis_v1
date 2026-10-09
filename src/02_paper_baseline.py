@@ -1,5 +1,11 @@
-"""Stage 2 - PAPER REPRODUCTION: binary 1-3 gram features -> ANN Input-30-30-20-10-10-output.
-Uses TRAIN data only (80/20 hold-out + 5-fold CV). The test set is evaluated once, in stage 07."""
+"""Stage 2 - PAPER-INSPIRED BASELINE: binary 1-3 gram features
+-> ANN with hidden layers 30-30-20-10-10.
+
+This is an inspired-by baseline, not an exact reproduction of Wu & Shin.
+Uses the supplied aclImdb train split with an 80/20 validation split
+and 5-fold CV on training data. The test set is evaluated in stage 7.
+"""
+
 import sys
 sys.path.insert(0, __import__("os").path.dirname(__file__))
 from common import *
