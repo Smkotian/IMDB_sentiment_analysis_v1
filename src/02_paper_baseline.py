@@ -19,7 +19,7 @@ def main():
     print("  5-fold CV (train only) ...")
     cv = cv_scores(spec, X, y)
     print(f"    cv_accuracy={cv.mean():.4f} +/- {cv.std():.4f}")
-    row = dict(stage="PAPER REPRODUCTION", **describe(spec), cv_accuracy=cv.mean(), cv_std=cv.std(),
+    row = dict(stage="PAPER INSPIRED BASELINE", **describe(spec), cv_accuracy=cv.mean(), cv_std=cv.std(),
                val_accuracy=h["val_accuracy"], training_time=h["training_time"],
                notes="Architecture/features from the brief; activation/optimizer/lr/batch are ASSUMPTIONS")
     save_results("paper_baseline.csv", [row])
