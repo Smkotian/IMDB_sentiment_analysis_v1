@@ -1,19 +1,9 @@
 {
-  "label": "best ANN",
+  "label": "best classical (logreg)",
   "spec": {
-    "model": "ann",
+    "model": "logreg",
     "params": {
-      "hidden": [
-        30,
-        30,
-        20,
-        10,
-        10
-      ],
-      "activation": "sigmoid",
-      "optimizer": "adam",
-      "lr": 0.001,
-      "l2": 0.0
+      "C": 10
     },
     "features": {
       "ngram": [

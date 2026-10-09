@@ -53,7 +53,7 @@
         "max_features": 30000
       }
     },
-    "cv_accuracy": 0.9026799999999999
+    "cv_accuracy": 0.9026400000000001
   },
   "feature_improved_ann": {
     "spec": {
@@ -69,7 +69,8 @@
         "activation": "relu",
         "optimizer": "adam",
         "lr": 0.001,
-        "l2": 0.0
+        "l2": 0.0,
+        "patience": 5
       },
       "features": {
         "ngram": [
@@ -88,16 +89,14 @@
       "model": "ann",
       "params": {
         "hidden": [
-          30,
-          30,
-          20,
-          10,
-          10
+          64,
+          32
         ],
-        "activation": "sigmoid",
-        "optimizer": "adam",
-        "lr": 0.001,
-        "l2": 0.0
+        "activation": "relu",
+        "optimizer": "adagrad",
+        "lr": 0.05,
+        "l2": 0.0,
+        "patience": 5
       },
       "features": {
         "ngram": [
@@ -109,6 +108,6 @@
         "max_features": 30000
       }
     },
-    "cv_accuracy": 0.90388
+    "cv_accuracy": 0.8953999999999999
   }
 }
