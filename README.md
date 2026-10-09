@@ -2,7 +2,7 @@
 
 UE24CS352A Machine Learning, Mini-Project
 
-**Team:** `<Simret M Kotian (PES1UG24CS456)>`, `<Supreeth K (SRN)>`  
+**Team:** `Simret M Kotian (PES1UG24CS456)`, `Supreeth K (SRN)`  
 **Section:** `H`  
 **Problem statement:** `Machine Learning based classification for Sentimental analysis of IMDb reviews`
 
