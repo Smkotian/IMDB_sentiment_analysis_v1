@@ -24,7 +24,7 @@ def main():
     print(f"  -> FINAL MODEL selected by CV: {final[0]}")
 
     fi = next((c for c in cands if c[0] == "paper ANN + best features"), None)
-    roles = [("PAPER REPRODUCTION", cands[0])]
+    roles = [("PAPER-INSPIRED BASELINE", cands[0])]
     if fi is not None and json.dumps(fi[1], sort_keys=True) != json.dumps(cands[0][1], sort_keys=True):
         roles.append(("OUR MINIMAL IMPROVEMENT - step 1: features only (paper ANN + best features)", fi))
     roles.append(("OUR MINIMAL IMPROVEMENT - FINAL MODEL (selected by CV)", final))
