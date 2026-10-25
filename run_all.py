@@ -1,14 +1,14 @@
-"""Run the whole pipeline:  python run_all.py   [--force] [--from N]
+"""Run the whole pipeline:  python run_all.py   [--force] [--from N] (obtained from argparse)
 Stages whose output already exists are skipped (use --force to recompute)."""
 import subprocess
 import sys
 import time
 import os
-import argparse
+import argparse  #command-line argument parser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "src"))  # sys.path controls where Python looks for modules to import.
 
 # (number, title, script, done-marker, critical)
 STAGES = [
@@ -26,7 +26,7 @@ def main():
     ap.add_argument("--force", action="store_true", help="recompute every stage")
     ap.add_argument("--from", dest="start", type=int, default=1, help="start at stage N")
     args = ap.parse_args()
-    env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUNBUFFERED="1")
+    env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUNBUFFERED="1") # os.environ to obtain the existing environment variables
     (ROOT / "results").mkdir(exist_ok=True)
     log = open(ROOT / "results" / "run_log.txt", "a", encoding="utf-8")
     t_all, failed = time.time(), []
@@ -53,7 +53,7 @@ def main():
             print(msg)
             if critical:
                 print("  This stage is required - stopping. Fix the error above and rerun `python run_all.py`.")
-                sys.exit(1)
+                sys.exit(1)  # 
             print("  Optional stage - continuing with fallbacks.")
         else:
             if n == 6:
